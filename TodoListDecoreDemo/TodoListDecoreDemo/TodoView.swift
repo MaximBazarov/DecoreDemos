@@ -28,13 +28,13 @@ struct TodoView: View {
             else {
                 TextField("Title", text: $title[id])
             }
-            Button(favorites.firstIndex(of: id) != nil ? "★" : "☆") {
-                // need another type of container, coming soon
-                guard let index = favorites.firstIndex(of: id) else {
-                    favorites.append(id)
-                    return
+            Button(favorites.contains(id) ? "★" : "☆") {
+                if favorites.contains(id) {
+                    favorites.remove(id)
                 }
-                favorites.remove(at: index)
+                else {
+                    favorites.insert(id)
+                }
             }.buttonStyle(.borderedProminent)
             .frame(minWidth: 64, minHeight: 64, alignment: .center)
         }

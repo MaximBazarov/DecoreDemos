@@ -46,8 +46,8 @@ enum TodoList {
     }
 
     struct Favorites: Container {
-        typealias Value = [TodoList.ID]
-        static func initialValue() -> [TodoList.ID] {
+        typealias Value = Set<TodoList.ID>
+        static func initialValue() -> Value {
             []
         }
     }
@@ -68,7 +68,7 @@ enum TodoList {
             let show = read(ShowMode.self)
             switch show {
             case 0: return read(AllTodos.self)
-            case 1: return read(Favorites.self)
+            case 1: return Array(read(Favorites.self))
             default: return read(AllTodos.self)
             }
         }
