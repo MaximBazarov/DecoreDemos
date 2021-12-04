@@ -28,6 +28,7 @@ struct TodoView: View {
             else {
                 TextField("Title", text: $title[id])
             }
+            Spacer()
             Button(favorites.contains(id) ? "★" : "☆") {
                 if favorites.contains(id) {
                     favorites.remove(id)
