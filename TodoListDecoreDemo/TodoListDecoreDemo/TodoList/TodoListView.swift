@@ -1,9 +1,3 @@
-//
-//  TodoListView.swift
-//  TodoListDecoreDemo
-//
-//  Created by Maxim Bazarov on 04.12.21.
-//
 
 import SwiftUI
 import Decore
@@ -14,7 +8,7 @@ struct TodoListView: View {
 
     var body: some View {
         List(todos, id: \.self) { id in
-            TodoView(id: id)
+            TodoItemView(id: id)
         }
     }
 }

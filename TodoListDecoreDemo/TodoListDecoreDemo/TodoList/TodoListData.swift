@@ -3,26 +3,8 @@ import Decore
 
 enum TodoList {
 
-    typealias ID = Int
 
-    struct Title: GroupContainer {
-        typealias Element = String
-        typealias ID = TodoList.ID
-
-        static func initialValue(for id: ID) -> Element {
-            "New Todo #\(id)"
-        }
-    }
-
-    struct isCompleted: GroupContainer {
-        typealias Element = Bool
-        typealias ID = TodoList.ID
-
-        static func initialValue(for id: TodoList.ID) -> Bool {
-            false
-        }
-    }
-
+    /// Computes the new ID for a todo item.
     struct NewID: Computation {
         typealias Value = Int
 
@@ -38,20 +20,15 @@ enum TodoList {
         }
     }
 
+    /// List of all existing todo items.
     struct AllTodos: Container {
-        typealias Value = [TodoList.ID]
-        static func initialValue() -> [TodoList.ID] {
-            []
-        }
-    }
-
-    struct Favorites: Container {
-        typealias Value = Set<TodoList.ID>
+        typealias Value = [TodoList.Item.ID]
         static func initialValue() -> Value {
             []
         }
     }
 
+    /// Show mode defining which set of todo items to show.
     struct ShowMode: Container {
         /// for simplicity I used int here, 0 = all, 1 = favorites, will be changed later
         typealias Value = Int
@@ -61,10 +38,11 @@ enum TodoList {
         }
     }
 
+    /// Computes the list of Todo item IDs to show depending on the selected mode
     struct TodosToShow: Computation {
-        typealias Value = [TodoList.ID]
+        typealias Value = [TodoList.Item.ID]
 
-        static func value(read: Storage.Reader) -> [TodoList.ID] {
+        static func value(read: Storage.Reader) -> Value {
             let show = read(ShowMode.self)
             switch show {
             case 0: return read(AllTodos.self)

@@ -8,7 +8,6 @@
 import SwiftUI
 import Decore
 
-
 struct ContentView: View {
 
     @Bind(TodoList.ShowMode.self) var showMode
